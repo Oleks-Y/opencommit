@@ -15,7 +15,8 @@ export enum CONFIG_KEYS {
   description = 'description',
   emoji = 'emoji',
   model = 'model',
-  language = 'language'
+  language = 'language',
+  shortTitle = 'shortTitle'
 }
 
 export enum CONFIG_MODES {
@@ -109,6 +110,14 @@ export const configValidators = {
       `${value} is not supported yet, use 'gpt-4' or 'gpt-3.5-turbo' (default)`
     );
     return value;
+  },
+
+  [CONFIG_KEYS.shortTitle](value: any) {
+    validateConfig(
+      CONFIG_KEYS.shortTitle,
+      typeof value === 'boolean',
+      'Must be true or false'
+    );
   }
 };
 
