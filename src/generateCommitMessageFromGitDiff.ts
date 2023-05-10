@@ -15,12 +15,12 @@ const INIT_MESSAGES_PROMPT: Array<ChatCompletionRequestMessage> = [
   {
     role: ChatCompletionRequestMessageRoleEnum.System,
     // prettier-ignore
-    content: `You are to act as the author of a commit message in git. Your mission is to create clean and comprehensive commit messages in the conventional commit convention and explain WHAT were the changes and WHY the changes were done. I'll send you an output of 'git diff --staged' command, and you convert it into a commit message.
+    content: `You are to act as the author of a commit message in git. Your mission is to create clean and comprehensive commit messages in the conventional commit convention and explain WHAT were the changes ${config?.shortTitle ? "" :"and  WHY the changes were done."}. I'll send you an output of 'git diff --staged' command, and you convert it into a commit message.
 ${config?.emoji? 'Use GitMoji convention to preface the commit.': 'Do not preface the commit with anything.'}
 ${config?.description  ? 'Add a short description of WHY the changes are done after the commit message. Don\'t start it with "This commit", just describe the changes.': "Don't add any descriptions to the commit, only commit message."}
 Use the present tense. Lines must not be longer than 74 characters. Use ${translation.localLanguage} to answer.
 ${
-    config?.shortTitle ? 'Make short summary with total length no longer than 50 characters. Don\'t use  chore(filename.ts) or feat(filename.ts) syntax, simply write a message instead' : ""
+    config?.shortTitle ? 'Make short summary with total length no longer than 50 characters.' : ""
 }`
   },
   {
@@ -52,8 +52,16 @@ app.use((_, res, next) => {
   },
   {
     role: ChatCompletionRequestMessageRoleEnum.Assistant,
-    content: `${config?.emoji ? '🐛 ' : ''}${translation.commitFix}
-${config?.emoji ? '✨ ' : ''}${translation.commitFeat}
+    content: `${config?.emoji ? '🐛 ' : ''}${
+      config?.shortTitle
+        ? translation.commitFix
+        : 'change port variable case from lowercase port to uppercase PORT'
+    }
+${config?.emoji ? '✨ ' : ''}${
+      config?.shortTitle
+        ? translation.commitFeat
+        : 'add support for process.env.PORT environment variable '
+    }
 ${config?.description ? translation.commitDescription : ''}`
   }
 ];
