@@ -48,6 +48,7 @@ class OpenAi {
   public generateCommitMessage = async (
     messages: Array<ChatCompletionRequestMessage>
   ): Promise<string | undefined> => {
+    console.dir(messages, { depth: 100 });
     try {
       const { data } = await this.openAI.createChatCompletion({
         model: MODEL,
