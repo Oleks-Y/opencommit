@@ -118,6 +118,7 @@ export const configValidators = {
       typeof value === 'boolean',
       'Must be true or false'
     );
+    return value;
   }
 };
 

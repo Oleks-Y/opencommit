@@ -9,6 +9,7 @@ import { i18n, I18nLocals } from './i18n';
 import { tokenCount } from './utils/tokenCount';
 
 const config = getConfig();
+console.dir(config)
 const translation = i18n[(config?.language as I18nLocals) || 'en'];
 
 const INIT_MESSAGES_PROMPT: Array<ChatCompletionRequestMessage> = [
@@ -54,13 +55,13 @@ app.use((_, res, next) => {
     role: ChatCompletionRequestMessageRoleEnum.Assistant,
     content: `${config?.emoji ? '🐛 ' : ''}${
       config?.shortTitle
-        ? translation.commitFix
-        : 'change port variable case from lowercase port to uppercase PORT'
+        ? 'change port variable case from lowercase port to uppercase PORT'
+        : translation.commitFix
     }
 ${config?.emoji ? '✨ ' : ''}${
       config?.shortTitle
-        ? translation.commitFeat
-        : 'add support for process.env.PORT environment variable '
+        ? 'add support for process.env.PORT environment variable '
+        : translation.commitFeat
     }
 ${config?.description ? translation.commitDescription : ''}`
   }
