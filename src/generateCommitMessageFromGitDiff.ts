@@ -20,7 +20,7 @@ ${config?.emoji? 'Use GitMoji convention to preface the commit.': 'Do not prefac
 ${config?.description  ? 'Add a short description of WHY the changes are done after the commit message. Don\'t start it with "This commit", just describe the changes.': "Don't add any descriptions to the commit, only commit message."}
 Use the present tense. Lines must not be longer than 74 characters. Use ${translation.localLanguage} to answer.
 ${
-    config?.shortTitle ? 'Make short summary with total length no longer than 50 characters' : ""
+    config?.shortTitle ? 'Make short summary with total length no longer than 50 characters. Don\'t use  chore(filename.ts) or feat(filename.ts) syntax' : ""
 }`
   },
   {
